@@ -25,7 +25,7 @@ export default function HomePage() {
             </div>
             <div className="flex items-center gap-2.5 mt-9 mb-8">
               <Link
-                href="/"
+                href="/tarot-reading"
                 className="rounded-[15px] text-[#DCD9D3] text-[14px] leading-4.5 bg-transparent border border-[#F6C049] py-3.5 px-4"
               >
                 Ask The Cards
