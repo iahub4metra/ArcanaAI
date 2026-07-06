@@ -17,3 +17,22 @@ export type TarotCard = {
   mythicalSpiritual?: string;
   questionsToAsk: string[];
 };
+
+export interface AIReading {
+  question: string;
+  cards: {
+    name: string;
+    position: number;
+    meaning: string;
+    relation: string;
+  }[];
+  overallInterpretation: string;
+  guidance: string[];
+}
+
+export interface ReadingSession {
+  question: string;
+  cards: TarotCard[];
+  createdAt: string;
+  answer: AIReading;
+}
