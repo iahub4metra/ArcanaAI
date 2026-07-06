@@ -1,9 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { cardOfTheDayReducer } from './features/cardOfTheDay/slice';
+import { readingSessionReducer } from './features/reading/slice';
 
 export const store = configureStore({
   reducer: {
     cardOfTheDay: cardOfTheDayReducer,
+    readingSession: readingSessionReducer,
   },
 });
 
