@@ -36,12 +36,15 @@ export default function Form() {
   };
 
   return (
-    <div className="bg-[#1B1B1B] p-4 md:p-6 rounded-2xl border-[#4E380F]">
-      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2.5 items-center">
+    <div className="bg-[#1B1B1B] p-4 md:p-6 rounded-2xl border-[#4E380F] w-full">
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className="flex flex-col gap-2.5 items-center xl:items-start"
+      >
         <TextField
           {...register('question')}
           multiline
-          maxRows={5}
+          maxRows={6}
           error={Boolean(errors.question?.message)}
           helperText={errors.question?.message}
           sx={{
@@ -52,6 +55,10 @@ export default function Form() {
               borderRadius: '1rem',
               alignItems: 'flex-start',
               '@media screen and (min-width: 768px)': {
+                width: '350px',
+                minHeight: '120px',
+              },
+              '@media screen and (min-width: 1280px)': {
                 width: '460px',
                 minHeight: '100px',
               },
@@ -61,14 +68,15 @@ export default function Form() {
               '& .MuiOutlinedInput-input': {
                 color: '#9CA3AF',
                 fontSize: '14px',
+                lineHeight: '18px',
               },
             },
           }}
-          placeholder="Your question to the cards"
+          placeholder="Type your question here..."
         />
         <button
           type="submit"
-          className="rounded-2xl bg-[#B73208] py-3.5 px-4 w-full border-[#F6C049] text-[#F5ECE0] text-[14px] flex items-center gap-1.5 justify-center"
+          className="rounded-2xl bg-[#B73208] py-3.5 px-4 w-full xl:w-auto border-[#F6C049] text-[#F5ECE0] text-[14px] flex items-center gap-1.5 justify-center"
         >
           Draw
           <TbCards className="stroke-[#F5ECE0]" />
