@@ -25,7 +25,9 @@ export interface AIReading {
     position: number;
     meaning: string;
     relation: string;
+    practicalGuidance: string;
   }[];
+  narrativeThread: string;
   overallInterpretation: string;
   guidance: string[];
 }
