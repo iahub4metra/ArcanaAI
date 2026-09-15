@@ -22,21 +22,26 @@ export default function Form() {
   });
 
   const onSubmit = async (data: QuestionFormData) => {
-    const cards = getRandomCards();
-    const createdAt = new Date().toISOString();
-    const answer = await generateReading({ question: data.question, cards });
-    const session: ReadingSession = {
-      question: data.question,
-      cards,
-      createdAt,
-      answer,
-    };
-    dispatch(setSession(session));
-    saveReadingSession(session);
+    try {
+      const cards = getRandomCards();
+      const createdAt = new Date().toISOString();
+      const answer = await generateReading({ question: data.question, cards });
+      const session: ReadingSession = {
+        question: data.question,
+        cards,
+        createdAt,
+        answer,
+      };
+      dispatch(setSession(session));
+      saveReadingSession(session);
+    } catch (error) {
+      console.error('Failed to get reading', error);
+      // TODO: toast? pop-up?
+    }
   };
 
   return (
-    <div className="bg-[#1B1B1B] p-4 md:p-6 rounded-2xl border-[#4E380F] w-full">
+    <div className="bg-[#1B1B1B] p-4 md:p-6 rounded-2xl w-full">
       <form
         onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col gap-2.5 items-center xl:items-start"

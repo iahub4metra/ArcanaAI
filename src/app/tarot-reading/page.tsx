@@ -1,5 +1,4 @@
 'use client';
-//import TarotReadingCardsList from '@/components/tarotReadingCardsList/TarotReadingCardsList';
 import Form from '@/components/tarotReadingPage/Form';
 import Image from 'next/image';
 
@@ -22,8 +21,6 @@ export default function TarotReadingPage() {
           />
           <Form />
         </div>
-
-        {/* {cards && <TarotReadingCardsList cards={cards} />} */}
       </div>
     </section>
   );
