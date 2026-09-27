@@ -3,6 +3,7 @@ import { slugify } from '@/services/slug';
 import { motion } from 'motion/react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useState } from 'react';
 
 export interface CardFlipProps {
   imgSrc: string;
@@ -12,6 +13,8 @@ export interface CardFlipProps {
 }
 
 export default function CardFlip({ imgSrc, name, flipDelay, dealDelay }: CardFlipProps) {
+  const [isRevealed, setIsRevealed] = useState<boolean>(false);
+
   return (
     <Link href={`/tarot-reading/spread-reveal/${slugify(name)}`}>
       <motion.div
@@ -20,6 +23,8 @@ export default function CardFlip({ imgSrc, name, flipDelay, dealDelay }: CardFli
         initial={{ opacity: 0, y: -40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: dealDelay, duration: 0.5, ease: 'easeOut' }}
+        whileHover={isRevealed ? { scale: 1.04, y: -4 } : {}}
+        whileFocus={isRevealed ? { scale: 1.04, y: -4 } : {}}
       >
         <motion.div
           className="relative h-full w-full"
@@ -27,6 +32,7 @@ export default function CardFlip({ imgSrc, name, flipDelay, dealDelay }: CardFli
           initial={{ rotateY: 0 }}
           animate={{ rotateY: 180 }}
           transition={{ delay: dealDelay + flipDelay, duration: 0.6, ease: 'easeInOut' }}
+          onAnimationComplete={() => setIsRevealed(true)}
         >
           <div
             className="absolute inset-0 overflow-hidden rounded-lg"
@@ -53,6 +59,16 @@ export default function CardFlip({ imgSrc, name, flipDelay, dealDelay }: CardFli
             />
           </div>
         </motion.div>
+        {isRevealed && ( // new
+          <motion.div
+            className="absolute bottom-1.5 right-1.5 flex h-5 w-5 items-center justify-center rounded-full bg-black/50 text-xs text-amber-300"
+            initial={{ opacity: 0, scale: 0.6 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.3 }}
+          >
+            ✦
+          </motion.div>
+        )}
       </motion.div>
     </Link>
   );
