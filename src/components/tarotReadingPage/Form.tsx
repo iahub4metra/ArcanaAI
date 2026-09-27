@@ -10,18 +10,23 @@ import { useAppDispatch } from '@/lib/hooks';
 import { setSession } from '@/lib/features/reading/slice';
 import { generateReading } from '@/services/ai/client';
 import { saveReadingSession } from '@/services/storage';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 
 export default function Form() {
+  const router = useRouter();
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const dispatch = useAppDispatch();
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<QuestionFormData>({
     resolver: zodResolver(questionSchema),
   });
 
   const onSubmit = async (data: QuestionFormData) => {
+    setSubmitError(null);
     try {
       const cards = getRandomCards();
       const createdAt = new Date().toISOString();
@@ -34,9 +39,10 @@ export default function Form() {
       };
       dispatch(setSession(session));
       saveReadingSession(session);
+      router.push('/tarot-reading/spread-reveal');
     } catch (error) {
       console.error('Failed to get reading', error);
-      // TODO: toast? pop-up?
+      setSubmitError('Something went wrong drawing your cards. Please try again.');
     }
   };
 
@@ -59,6 +65,10 @@ export default function Form() {
               minHeight: '140px',
               borderRadius: '1rem',
               alignItems: 'flex-start',
+              ':hover .MuiOutlinedInput-notchedOutline, &.Mui-focused .MuiOutlinedInput-notchedOutline':
+                {
+                  borderColor: '#FC8804',
+                },
               '@media screen and (min-width: 768px)': {
                 width: '350px',
                 minHeight: '120px',
@@ -81,11 +91,13 @@ export default function Form() {
         />
         <button
           type="submit"
+          disabled={isSubmitting}
           className="rounded-2xl bg-[#B73208] py-3.5 px-4 w-full xl:w-auto border-[#F6C049] text-[#F5ECE0] text-[14px] flex items-center gap-1.5 justify-center"
         >
-          Draw
+          {isSubmitting ? 'Drawing...' : 'Draw'}
           <TbCards className="stroke-[#F5ECE0]" />
         </button>
+        {submitError && <p className="text-[13px] text-red-400">{submitError}</p>}
       </form>
     </div>
   );
