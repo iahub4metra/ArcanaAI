@@ -22,7 +22,7 @@ export default function CardDetailPage() {
       <div className="adaptive-container">
         <Link
           href="/tarot-reading/spread-reveal"
-          className="text-[14px] text-[#D9CFAE] border-1 border-[#4E380F] rounded-lg p-1.5"
+          className="text-[14px] text-[#D9CFAE] border-1 border-[#4E380F] rounded-lg p-1.5 inline-block bg-[#1b1b1b] my-3.5"
         >
           ← Back to reading
         </Link>
