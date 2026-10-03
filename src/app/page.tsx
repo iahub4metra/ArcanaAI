@@ -1,7 +1,18 @@
+'use client';
 import CardOfTheDay from '@/components/CardOfTheDay/CardOfTheDay';
 import Link from 'next/link';
+import { useEffect } from 'react';
 
 export default function HomePage() {
+  useEffect(() => {
+    const target = sessionStorage.getItem('scrollTarget');
+    if (!target) return;
+    sessionStorage.removeItem('scrollTarget');
+    requestAnimationFrame(() => {
+      document.getElementById(target)?.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
   return (
     <section className="py-5">
       <div className="adaptive-container">
@@ -25,56 +36,58 @@ export default function HomePage() {
                 Ask The Cards
               </Link>
             </div>
-            <CardOfTheDay />
-            <div className="mt-9">
-              <h3 className="text-[#FDF4E1] text-[18px] leading-7 mb-3 xl:text-center">
-                How it works
-              </h3>
-              <ul className="flex flex-col gap-3.5 md:flex-row md:justify-center">
-                <li>
-                  <div className="p-4 rounded-xl border flex items-center gap-3 border-[#4E380F] bg-[#151517]">
-                    <div className="rounded-full flex justify-center items-center size-[36px] border border-[#4E380F] text-[#FDF4E1] text-[18px] leading-5">
-                      1
+            <div className="flex flex-col xl:flex-row xl:gap-6">
+              <CardOfTheDay />
+              <div className="mt-9 scroll-mt-24" id="how-it-works">
+                <h3 className="text-[#FDF4E1] text-[18px] leading-7 mb-3 xl:text-center">
+                  How it works
+                </h3>
+                <ul className="flex flex-col gap-3.5 md:flex-row md:justify-center xl:flex-col">
+                  <li>
+                    <div className="p-4 rounded-xl border flex items-center gap-3 border-[#4E380F] bg-[#151517]">
+                      <div className="rounded-full flex justify-center items-center size-[36px] border border-[#4E380F] text-[#FDF4E1] text-[18px] leading-5">
+                        1
+                      </div>
+                      <div>
+                        <h4 className="text-[#FDF4E1] text-[16px] leading-5">Ask</h4>
+                        <p className="text-[#FDF4E1] text-[14px] leading-[18px]">
+                          Pose your question
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="text-[#FDF4E1] text-[16px] leading-5">Ask</h4>
-                      <p className="text-[#FDF4E1] text-[14px] leading-[18px]">
-                        Pose your question
-                      </p>
+                  </li>
+                  <li>
+                    <div className="p-4 rounded-xl border flex items-center gap-3 border-[#4E380F] bg-[#151517]">
+                      <div className="rounded-full flex justify-center items-center size-[36px] border border-[#4E380F] text-[#FDF4E1] text-[18px] leading-5">
+                        2
+                      </div>
+                      <div>
+                        <h4 className="text-[#FDF4E1] text-[16px] leading-5">Draw</h4>
+                        <p className="text-[#FDF4E1] text-[14px] leading-[18px]">
+                          Draw a spread of cards
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                </li>
-                <li>
-                  <div className="p-4 rounded-xl border flex items-center gap-3 border-[#4E380F] bg-[#151517]">
-                    <div className="rounded-full flex justify-center items-center size-[36px] border border-[#4E380F] text-[#FDF4E1] text-[18px] leading-5">
-                      2
+                  </li>
+                  <li>
+                    <div className="p-4 rounded-xl border flex items-center gap-3 border-[#4E380F] bg-[#151517]">
+                      <div className="rounded-full flex justify-center items-center size-[36px] border border-[#4E380F] text-[#FDF4E1] text-[18px] leading-5">
+                        3
+                      </div>
+                      <div>
+                        <h4 className="text-[#FDF4E1] text-[16px] leading-5">Reflect</h4>
+                        <p className="text-[#FDF4E1] text-[14px] leading-[18px]">
+                          Get layered interpretation
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="text-[#FDF4E1] text-[16px] leading-5">Draw</h4>
-                      <p className="text-[#FDF4E1] text-[14px] leading-[18px]">
-                        Draw a spread of cards
-                      </p>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div className="p-4 rounded-xl border flex items-center gap-3 border-[#4E380F] bg-[#151517]">
-                    <div className="rounded-full flex justify-center items-center size-[36px] border border-[#4E380F] text-[#FDF4E1] text-[18px] leading-5">
-                      3
-                    </div>
-                    <div>
-                      <h4 className="text-[#FDF4E1] text-[16px] leading-5">Reflect</h4>
-                      <p className="text-[#FDF4E1] text-[14px] leading-[18px]">
-                        Get layered interpretation
-                      </p>
-                    </div>
-                  </div>
-                </li>
-              </ul>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>
-        <div className="mb-7">
+        <div className="mb-7 scroll-mt-24" id="why-arcanaAi">
           <h3 className="text-[#FDF4E1] text-[18px] leading-7 mb-3 xl:text-center">Why ArcanaAI</h3>
           <ul className="flex flex-col gap-4 xl:flex-row xl:justify-center">
             <li className="p-4 rounded-xl border flex flex-col gap-3 border-[#4E380F] bg-[#151517] flex-1 ">
